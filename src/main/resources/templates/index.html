@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Lista</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link rel="icon" href="/image/favicon.png" />
+<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+	rel="stylesheet" />
+<link href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<header>
+		<nav
+			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="btn btn-dark navbar-toggle pull-left">
+						<i class="oi oi-menu"></i>
+					</button>
+					<a class="navbar-brand navbar-toggle pull-left" href="#">FilaH</a>
+				</div>
+				<a href="#" th:href="@{/logout}">LOGOUT</a>
+			</div>
+		</nav>
+	</header>
+
+	<div class="layout-main">
+		<aside>
+			<nav class="sidebar sidebar-open">
+				<ul class="nav nav-pills">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/redirect/listcustomer}"> <i class="oi oi-home"></i>
+							<span>Home</span>
+					</a></li>
+				</ul>
+				<ul class="nav nav-pills">
+					<li class="nav-item"><span class="nav-link active">URLs</span></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/redirect/cadastrar}"> <i class="oi oi-plus"></i> <span>Cadastrar</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/redirect/list}"> <i class="oi oi-spreadsheet"></i>
+							<span>Listar</span>
+					</a></li>
+				</ul>
+			</nav>
+		</aside>
+
+		<section class="layout-content">
+			<nav class="navbar navbar-expand-md bg-light">
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active"></li>
+					</ul>
+					<a class="btn btn-primary btn-md" th:href="@{/redirect/cadastrar}"
+						role="button"> <span class="oi oi-plus" title="Cadastro"
+						aria-hidden="true"></span> <span>Novo Redirecionador</span>
+					</a>
+				</div>
+			</nav>
+
+			<form th:action="@{/redirect/searchcustomer}" th:object="${customer}" method="POST">
+				<div class="container" id="lista">
+					<label>Lista de Empresas:</label> 
+					<select name="id" class="form-control selectpicker mb-3">
+						<option value="">Selecione um Cliente</option>
+						<option th:each="customer :${customers}" th:text="${customer.name}">
+					</select>
+					<input class="btn btn-primary" type="submit" value="Buscar">
+				</div>
+			</form>
+		</section>
+	</div>
+
+	<footer class="layout-footer">
+		<div class="container">
+			<span class="footer-copy">&copy; FilaH. Todos os direitos
+				reservados.</span>
+		</div>
+	</footer>
+
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		var url = '';
+
+		$('button[id*="bnt_"]').click(function() {
+			url = "http//localhost:8080/" + $(this).attr('id').split("_")[1];
+		});
+
+		$('ok_confirm').click(function() {
+			document.location.href = url;
+		});
+
+		$(function() {
+			$('[data-toggle="popover"]').popover();
+		});
+
+		$(document).ready(function() {
+			$(".navbar-toggle").click(function() {
+				$(".sidebar").toggleClass("sidebar-open");
+			});
+		});
+	</script>
+</body>
+</html>
+
